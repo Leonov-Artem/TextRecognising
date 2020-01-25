@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using OpenQA.Selenium;
-using System.Drawing;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -15,10 +11,11 @@ namespace PhotoParser
     {
         const string URL_PAGE_TRANSLATOR = "https://translate.yandex.ru/ocr";
         const string BODY = "//body";
+        const string COPY_BUTTON = "copyButton";
         const string TRANSLATION_BUTTON = "/html/body/div[2]/div[1]/div[1]/div[4]/span[1]";
         const string SWITCH_DIRECTION_BUTTON = "/html/body/div[2]/div[2]/div[3]";
         const int WAIT_TIME = 1000;
-        const double TEXT_RECOGNITION_WAITING = 1000;
+        const double TEXT_RECOGNITION_WAITING = 10;
         static readonly string CTRL_V = Keys.Control + "v";
 
         IWebDriver _driver;
@@ -32,6 +29,7 @@ namespace PhotoParser
         {
             SwitchToPageWithTranslation();
             ClickOnSwitchDirection();
+            Thread.Sleep(WAIT_TIME);
 
             return this;
         }
@@ -73,20 +71,18 @@ namespace PhotoParser
 
         private void ClickOnTranslationButton()
         {
-            DoTaskWithWait
+            WaitHideElement
             (
                 By.XPath(TRANSLATION_BUTTON),
                 TEXT_RECOGNITION_WAITING
-            );
+            ).Click();
         }
 
         private void CopyTextFromArea()
         {
-            DoTaskWithWait
-            (
-                By.Id("copyButton"),
-                WAIT_TIME
-            );
+            _driver
+                .FindElement(By.Id(COPY_BUTTON))
+                .Click();
         }
 
         /// <summary>
@@ -107,11 +103,10 @@ namespace PhotoParser
                         .Window(lastTabName);
         }
 
-        private void DoTaskWithWait(By by, double waitTime)
+        private IWebElement WaitHideElement(By by, double waitTime)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(waitTime));
-            var element = wait.Until(ExpectedConditions.ElementIsVisible(by));
-            element.Click();
+            return wait.Until(ExpectedConditions.ElementIsVisible(by));
         }
 
         private void CloseBrowser()

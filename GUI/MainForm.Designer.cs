@@ -35,29 +35,29 @@
             // recognizeTextButton
             // 
             this.recognizeTextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.recognizeTextButton.Location = new System.Drawing.Point(12, 12);
+            this.recognizeTextButton.Location = new System.Drawing.Point(12, 76);
             this.recognizeTextButton.Name = "recognizeTextButton";
             this.recognizeTextButton.Size = new System.Drawing.Size(205, 48);
-            this.recognizeTextButton.TabIndex = 0;
+            this.recognizeTextButton.TabIndex = 1;
             this.recognizeTextButton.Text = "Распознать текст из буфера обмена\r\n";
             this.recognizeTextButton.UseVisualStyleBackColor = true;
             this.recognizeTextButton.Click += new System.EventHandler(this.RecognizeTextButton_Click);
             // 
             // recognizeAndTranslateTextbutton
             // 
-            this.recognizeAndTranslateTextbutton.Location = new System.Drawing.Point(12, 75);
+            this.recognizeAndTranslateTextbutton.Location = new System.Drawing.Point(12, 12);
             this.recognizeAndTranslateTextbutton.Name = "recognizeAndTranslateTextbutton";
             this.recognizeAndTranslateTextbutton.Size = new System.Drawing.Size(205, 48);
-            this.recognizeAndTranslateTextbutton.TabIndex = 1;
+            this.recognizeAndTranslateTextbutton.TabIndex = 0;
             this.recognizeAndTranslateTextbutton.Text = "Перевести текст из буфера обмена";
             this.recognizeAndTranslateTextbutton.UseVisualStyleBackColor = true;
-            this.recognizeAndTranslateTextbutton.Click += new System.EventHandler(this.RecognizeAndTranslateTextbutton_Click);
+            this.recognizeAndTranslateTextbutton.Click += new System.EventHandler(this.TranslateTextbutton_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(238, 136);
+            this.ClientSize = new System.Drawing.Size(228, 136);
             this.Controls.Add(this.recognizeAndTranslateTextbutton);
             this.Controls.Add(this.recognizeTextButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -66,7 +66,6 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PhotoParser";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.ResumeLayout(false);
 
         }

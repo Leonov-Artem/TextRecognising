@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PhotoParser;
 
@@ -20,31 +13,34 @@ namespace GUI
             InitializeComponent();
         }
 
+        private void RunAction(Action action)
+        {
+            if (Clipboard.ContainsImage())
+                action.Invoke();
+            else
+                MessageBox.Show("Буфер обмена не содержит изображение!", ERROR_NOTIFICATION);
+        }
+
+        private void Recognize()
+        {
+            var text = new TextRecogniser();
+            text.Recognize().CopyToClipboard();
+        }
+
+        private void Translate()
+        {
+            var text = new TextRecogniser();
+            text.Translate().CopyToClipboard();
+        }
+
         private void RecognizeTextButton_Click(object sender, EventArgs e)
         {
-            if (Clipboard.ContainsImage())
-            {
-                var text = new TextRecogniser();
-                text.Recognize().CopyToClipboard();
-            }
-            else
-                MessageBox.Show("Буфер обмена не содержит изображение!", ERROR_NOTIFICATION);
+            RunAction(() => Recognize());
         }
 
-        private void RecognizeAndTranslateTextbutton_Click(object sender, EventArgs e)
+        private void TranslateTextbutton_Click(object sender, EventArgs e)
         {
-            if (Clipboard.ContainsImage())
-            {
-                var text = new TextRecogniser();
-                text.Translate().CopyToClipboard();
-            }
-            else
-                MessageBox.Show("Буфер обмена не содержит изображение!", ERROR_NOTIFICATION);
-        }
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
+            RunAction(() => Translate());
         }
     }
 }
