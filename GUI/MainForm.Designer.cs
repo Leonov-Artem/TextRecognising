@@ -34,7 +34,7 @@
             // 
             // recognizeTextButton
             // 
-            this.recognizeTextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.recognizeTextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.recognizeTextButton.Location = new System.Drawing.Point(12, 76);
             this.recognizeTextButton.Name = "recognizeTextButton";
             this.recognizeTextButton.Size = new System.Drawing.Size(205, 48);
@@ -45,6 +45,7 @@
             // 
             // recognizeAndTranslateTextbutton
             // 
+            this.recognizeAndTranslateTextbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.recognizeAndTranslateTextbutton.Location = new System.Drawing.Point(12, 12);
             this.recognizeAndTranslateTextbutton.Name = "recognizeAndTranslateTextbutton";
             this.recognizeAndTranslateTextbutton.Size = new System.Drawing.Size(205, 48);
