@@ -14,9 +14,10 @@ namespace PhotoParser
     {
         const string URL_PAGE_TRANSLATOR = "https://translate.yandex.ru/ocr";
         const string BODY = "//body";
-        const string OPEN_IN_TRANSLATOR_BUTTON = "/html/body/div[2]/div[1]/div[1]/div[4]/span[1]";
-        const string SWAP_TRANSLATIONS_BUTTON = "/html/body/div[2]/div[2]/div[3]";
-        const int WAIT_TIME = 5000;
+        const string TRANSLATION_BUTTON = "/html/body/div[2]/div[1]/div[1]/div[4]/span[1]";
+        const string SWITCH_DIRECTION_BUTTON = "/html/body/div[2]/div[2]/div[3]";
+        const int WAIT_TIME = 500;
+        const double TEXT_RECOGNITION_WAITING = 5000;
         static readonly string CTRL_V = Keys.Control + "v";
 
         IWebDriver _driver;
@@ -26,32 +27,36 @@ namespace PhotoParser
             _driver = new OpenQA.Selenium.Chrome.ChromeDriver();
         }
 
-        public void RecognizeAndCopyToClipboard()
+        public TextRecogniser Recognize()
         {
-            OpenTranslatePage();
-            DragPhotoIntoBox();
-            OpenPageWithTranslation();
-            IWebDriver driver = SwapTranslations();
-            CopyTextFromArea(driver);
-            CloseBrowser();     
+            SwitchToPageWithTranslation();
+            ClickOnSwitchDirection();
+
+            return this;
         }
 
-        public void Recognize()
+        public TextRecogniser Translate()
         {
+            SwitchToPageWithTranslation();
 
+            return this;
         }
 
-        public void Translate()
+        public void CopyToClipboard()
         {
-            OpenTranslatePage();
-            DragPhotoIntoBox();
-            OpenPageWithTranslation();
-            IWebDriver driver = SwitchToLastTab();
-            CopyTextFromArea(driver);
+            CopyTextFromArea();
             CloseBrowser();
         }
 
-        private void OpenTranslatePage()
+        private void SwitchToPageWithTranslation()
+        {
+            OpenTranslator();
+            DragPhotoIntoBox();
+            ClickOnTranslationButton();
+            SwitchToLastTab();
+        }
+
+        private void OpenTranslator()
         {
             _driver
                 .Navigate()
@@ -65,49 +70,51 @@ namespace PhotoParser
                 .SendKeys(CTRL_V);
         }
 
-        private void OpenPageWithTranslation()
+        private void ClickOnTranslationButton()
         {
-            DoTaskWithWait(By.XPath(OPEN_IN_TRANSLATOR_BUTTON));
-
-            //Thread.Sleep(WAIT_TIME);
-            //var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(WAIT_TIME));
-            //var element = wait.Until((d) => d.FindElement(By.XPath(OPEN_IN_TRANSLATOR_BUTTON)));
-            //element.Click();
+            DoTaskWithWait
+            (
+                By.XPath(TRANSLATION_BUTTON),
+                TEXT_RECOGNITION_WAITING
+            );
         }
 
-        private void CopyTextFromArea(IWebDriver driver=null)
+        private void CopyTextFromArea()
         {
-            DoTaskWithWait(By.Id("copyButton"), driver);
+            DoTaskWithWait
+            (
+                By.Id("copyButton"),
+                WAIT_TIME
+            );
         }
 
-        private IWebDriver SwapTranslations()
+        /// <summary>
+        /// Переключение между переводами. 
+        /// Нужно для перемещения текста в блок, в котором есть кнопка копирования.
+        /// </summary>
+        private void ClickOnSwitchDirection()
         {
-            IWebDriver lastTab = SwitchToLastTab();
-            var swapTranslationsButton = lastTab.FindElement(By.XPath(SWAP_TRANSLATIONS_BUTTON));
-            swapTranslationsButton.Click();
-
-            return lastTab;
+            var switchDirectionButton = _driver.FindElement(By.XPath(SWITCH_DIRECTION_BUTTON));
+            switchDirectionButton.Click();
         }
 
-        private IWebDriver SwitchToLastTab()
+        private void SwitchToLastTab()
         {
-            return _driver
+            string lastTabName = _driver.WindowHandles.Last();
+            _driver = _driver
                         .SwitchTo()
-                        .Window(_driver.WindowHandles.Last());
+                        .Window(lastTabName);
+        }
+
+        private void DoTaskWithWait(By by, double waitTime)
+        {
+            Thread.Sleep((int)waitTime);
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(waitTime));
+            var element = wait.Until((d) => d.FindElement(by));
+            element.Click();
         }
 
         private void CloseBrowser()
             => _driver.Quit();
-
-        private void DoTaskWithWait(By by, IWebDriver driver = null)
-        {
-            if (driver == null)
-                driver = _driver;
-
-            Thread.Sleep(WAIT_TIME);
-            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(WAIT_TIME));
-            var element = wait.Until((d) => d.FindElement(by));
-            element.Click();
-        }
     }
 }

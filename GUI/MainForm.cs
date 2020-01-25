@@ -25,9 +25,8 @@ namespace GUI
             if (Clipboard.ContainsImage())
             {
                 var text = new TextRecogniser();
-                text.RecognizeAndCopyToClipboard();
+                text.Recognize().CopyToClipboard();
             }
-
             else
                 MessageBox.Show("Буфер обмена не содержит изображение!", ERROR_NOTIFICATION);
         }
@@ -37,7 +36,7 @@ namespace GUI
             if (Clipboard.ContainsImage())
             {
                 var text = new TextRecogniser();
-                text.Translate();
+                text.Translate().CopyToClipboard();
             }
             else
                 MessageBox.Show("Буфер обмена не содержит изображение!", ERROR_NOTIFICATION);
