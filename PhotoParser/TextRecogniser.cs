@@ -91,8 +91,9 @@ namespace PhotoParser
         /// </summary>
         private void ClickOnSwitchDirection()
         {
-            var switchDirectionButton = _driver.FindElement(By.XPath(SWITCH_DIRECTION_BUTTON));
-            switchDirectionButton.Click();
+            _driver
+                .FindElement(By.XPath(SWITCH_DIRECTION_BUTTON))
+                .Click();
         }
 
         private void SwitchToLastTab()
