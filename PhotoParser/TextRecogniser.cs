@@ -7,6 +7,7 @@ using System.Threading;
 using OpenQA.Selenium;
 using System.Drawing;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace PhotoParser
 {
@@ -16,8 +17,8 @@ namespace PhotoParser
         const string BODY = "//body";
         const string TRANSLATION_BUTTON = "/html/body/div[2]/div[1]/div[1]/div[4]/span[1]";
         const string SWITCH_DIRECTION_BUTTON = "/html/body/div[2]/div[2]/div[3]";
-        const int WAIT_TIME = 500;
-        const double TEXT_RECOGNITION_WAITING = 5000;
+        const int WAIT_TIME = 1000;
+        const double TEXT_RECOGNITION_WAITING = 1000;
         static readonly string CTRL_V = Keys.Control + "v";
 
         IWebDriver _driver;
@@ -108,9 +109,8 @@ namespace PhotoParser
 
         private void DoTaskWithWait(By by, double waitTime)
         {
-            Thread.Sleep((int)waitTime);
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(waitTime));
-            var element = wait.Until((d) => d.FindElement(by));
+            var element = wait.Until(ExpectedConditions.ElementIsVisible(by));
             element.Click();
         }
 
