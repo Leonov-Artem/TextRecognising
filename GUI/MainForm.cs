@@ -27,6 +27,7 @@ namespace GUI
                 var text = new TextRecogniser();
                 text.RecognizeAndCopyToClipboard();
             }
+
             else
                 MessageBox.Show("Буфер обмена не содержит изображение!", ERROR_NOTIFICATION);
         }
