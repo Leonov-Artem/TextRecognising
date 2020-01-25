@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoParser", "PhotoParser\PhotoParser.csproj", "{15D8B702-FE5F-4278-B77B-6B373D6ACB0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{624C76D7-B9E6-4543-9F00-99BE7660565F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15D8B702-FE5F-4278-B77B-6B373D6ACB0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15D8B702-FE5F-4278-B77B-6B373D6ACB0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15D8B702-FE5F-4278-B77B-6B373D6ACB0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15D8B702-FE5F-4278-B77B-6B373D6ACB0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{624C76D7-B9E6-4543-9F00-99BE7660565F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{624C76D7-B9E6-4543-9F00-99BE7660565F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{624C76D7-B9E6-4543-9F00-99BE7660565F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{624C76D7-B9E6-4543-9F00-99BE7660565F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E6C53C1-1441-4183-AE04-744280DA688C}
+	EndGlobalSection
+EndGlobal
