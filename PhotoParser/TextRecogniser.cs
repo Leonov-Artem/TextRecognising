@@ -114,3 +114,4 @@ namespace PhotoParser
             => _driver.Quit();
     }
 }
+
